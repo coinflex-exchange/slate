@@ -196,36 +196,60 @@
   color: #f92672;
 }
     </style>
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all.js"></script>
+    <link href="stylesheets/screen-a1ce949a.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print-bccf8c07.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all-c5541673.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" alt="Navbar" />
+        <img src="images/navbar-cad8cdcb.png" alt="Navbar" />
       </span>
     </a>
     <div class="toc-wrapper">
-      <img src="images/logo.png" class="logo" alt="Logo" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
-        </div>
+      <img src="images/logo-1e815a84.png" class="logo" alt="Logo" />
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
         </div>
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#coinflex-trade-engine-apis" class="toc-h1 toc-link" data-title="CoinFLEX Trade Engine APIs">CoinFLEX Trade Engine APIs</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#general-notes" class="toc-h2 toc-link" data-title="General notes">General notes</a>
+                  </li>
+                  <li>
+                    <a href="#getting-started-with-the-websocket-api" class="toc-h2 toc-link" data-title="Getting started with the WebSocket API">Getting started with the WebSocket API</a>
+                  </li>
+              </ul>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#coinflex-authentication-process" class="toc-h1 toc-link" data-title="CoinFLEX Authentication Process">CoinFLEX Authentication Process</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#protocol" class="toc-h2 toc-link" data-title="Protocol">Protocol</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#reference" class="toc-h1 toc-link" data-title="Reference:">Reference:</a>
+          </li>
+          <li>
+            <a href="#table" class="toc-h1 toc-link" data-title="Table:">Table:</a>
+          </li>
+          <li>
+            <a href="#api" class="toc-h1 toc-link" data-title="API:">API:</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#gets-a-complete-list-of-coinflex-spot-and-futures-markets" class="toc-h2 toc-link" data-title="Gets a complete list of  CoinFLEX SPOT and Futures markets">Gets a complete list of  CoinFLEX SPOT and Futures markets</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication:">Authentication:</a>
           </li>
           <li>
             <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
@@ -247,32 +271,299 @@
       </ul>
         <ul class="toc-footer">
             <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+        <h1 id='coinflex-trade-engine-apis'>CoinFLEX Trade Engine APIs</h1>
+<p>CoinFLEX&#39;s application programming interfaces (APIs) provide our clients programmatic access to control aspects of their accounts and to place orders on CoinFLEX&#39;s trading platforms.</p>
 
-<p>We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>CoinFLEX provides several APIs:</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
-<h1 id='authentication'>Authentication</h1>
+<ul>
+<li>our native <a href="#WEBSOCKET-README.md">WebSocket API</a></li>
+<li>a <a href="REST.md">RESTful API</a></li>
+<li>an <a href="EventStream.md">Event Stream resource</a></li>
+<li>a second futures <a href="FUTURES.md#get-borrowerevents">Event Stream resource</a> for your collateral, leverage and margin</li>
+</ul>
+
+<p>Using these interfaces it is possible to make both authenticated and unauthenticated API calls, with the exception of the Futures Event Stream which is authenticated only.</p>
+
+<p>Access keys are available on the CoinFLEX logged-in dashboard page for verified users which, in conjunction with your account password, allow authenticated use these APIs.</p>
+<h2 id='general-notes'>General notes</h2>
+<p>To protect the performance of the system, CoinFLEX imposes certain limits on the rates at which you may issue commands to the API. Please see <a href="LIMITS.md">LIMITS.md</a>.</p>
+
+<p>All quantities and prices are transmitted and received as integers with implicit scale factors. For scale information, please see <a href="SCALE.md">SCALE.md</a>.</p>
+
+<p>CoinFLEX has published <a href="https://github.com/coinflex-exchange/">client libraries</a> for several popular languages to aid you in implementing your client application.</p>
+<h2 id='getting-started-with-the-websocket-api'>Getting started with the WebSocket API</h2>
+<blockquote>
+<p><strong>The <a href="#WEBSOCKET-README.md">WebSocket API</a> is accessible via <a href="https://tools.ietf.org/html/rfc6455" title="IETF RFC 6455">WebSocket</a> connection to the following URLs:</strong></p>
+
+<p>DEMO/STAGE site</p>
+</blockquote>
+<pre class="highlight plaintext"><code>wss://stgapi.coinflex.com/v1   (encrypted)
+</code></pre>
+<blockquote>
+<p>LIVE site</p>
+</blockquote>
+<pre class="highlight plaintext"><code>wss://api.coinflex.com/v1      (encrypted)
+</code></pre>
+<p>Commands, replies, and notifications traverse the WebSocket in text frames with <a href="https://tools.ietf.org/html/rfc4627" title="IETF RFC 4627">JSON</a>-formatted payloads.</p>
+
+<aside class="success">
+We strongly recommend that you use TLS transport for all connections.
+</aside>
+
+<p><a href="#WEBSOCKET-README.md">Click here for more details on how to use the WebSocket API</a></p>
+<h1 id='coinflex-authentication-process'>CoinFLEX Authentication Process</h1>
+<p><a href="#WEBSOCKET-README.md">WebSocket clients</a> authenticate by sending an authentication message containing a numeric user identifier, a cookie (described as an API key on the CoinFLEX website), a nonce chosen by the client, and an <a href="http://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> signature. The signature covers the user identifier, a nonce chosen by the server (which is transmitted to the client upon its connecting to the server), and the nonce chosen by the client. The connection is secured using TLS.</p>
+<h2 id='protocol'>Protocol</h2>
+<blockquote>
+<p><strong>Example</strong></p>
+
+<p>Suppose a client whose user identifier is 1 and whose passphrase is &quot;opensesame&quot; wishes to authenticate to the WebSocket server.</p>
+
+<p>1. The client connects to the server and performs the WebSocket handshake.</p>
+
+<p>2. The server sends a <code>Welcome</code> notification and a randomly generated 16-bytes <code>server nonce</code>:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"notice"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Welcome"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"azRzAi5rm1ry/l0drnz1vw=="</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>3. The client decodes the <code>server nonce</code> into these 16 bytes:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>0x6b347302 2e6b9b5a f2fe5d1d ae7cf5bf
+</code></pre>
+<blockquote>
+<p>N.B: Spaces are shown for the sake of clarity and do not denote elements of the actual value.</p>
+
+<p>4. The client randomly generates a 16-byte <code>client nonce</code>:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>0xf08c98ca f1fd82e8 cea9825d bff04fd0
+</code></pre>
+<blockquote>
+<p>5. The client encodes the <code>client nonce</code> using base64:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>8IyYyvH9gujOqYJdv/BP0A==
+</code></pre>
+<blockquote>
+<p>6. The client&#39;s <code>cookie</code> is:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>HGREqcILTz8blHa/jsUTVTNBJlg=
+</code></pre>
+<blockquote>
+<p>7. The client constructs a 40-byte <code>message</code> to sign, consisting of its <code>user_id</code>, the <code>server nonce</code>, and the <code>client nonce</code>:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>0x00000000 00000001
+0x6b347302 2e6b9b5a f2fe5d1d ae7cf5bf
+0xf08c98ca f1fd82e8 cea9825d bff04fd0
+</code></pre>
+<blockquote>
+<p>8. The client constructs a <code>seed</code> for its <code>private key</code>, consisting of its <code>user_id</code> and UTF-8-encoded passphrase:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>0x00000000 00000001
+0x6f70656e 73657361 6d65
+</code></pre>
+<blockquote>
+<p>9. The client hashes its <code>seed</code> using SHA-224 to obtain its <code>private key</code>:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>0xb89ea7fc d22cc059 c2673dc2 4ff40b97 83074646 86560d0a d7561b83
+</code></pre>
+<blockquote>
+<p>10. The client <a href="http://en.wikipedia.org/wiki/Elliptic_Curve_DSA">signs</a> the 28-byte SHA-224 digest of the 40-byte <code>message</code> using its <code>private key</code> under <strong>secp224k1</strong> and obtains, for example:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>r = 0x3fb77a9d 7b5b2a68 209e76f6 872078c5 791340d5 989854ad a3ab735e
+s = 0x34b84341 2f18a910 f18a7d4c e1d35978 60e6345b 22bf7894 cf67780a
+</code></pre>
+<blockquote>
+<p>The <a href="https://github.com/coinflex-exchange/libecp#sign_secp224k1">sign_secp224k1</a> utility may be used to produce the <code>signature</code>.</p>
+
+<p>N.B: The <code>signature</code> (r, s) generated by the ECDSA is non-deterministic. Furthermore, the <code>signature</code> (r, s) is still non-deterministic if you use the deterministic <code>server nonce</code> and <code>client nonce</code> to build the codes, this is due to the nature of ECDSA.</p>
+
+<p>11. The client encodes the <code>signature</code> using base64:</p>
+</blockquote>
+<pre class="highlight plaintext"><code>P7d6nXtbKmggnnb2hyB4xXkTQNWYmFSto6tzXg==
+NLhDQS8YqRDxin1M4dNZeGDmNFsiv3iUz2d4Cg==
+</code></pre>
+<blockquote>
+<p>12. The client sends an <code>Authenticate</code> command to the server:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authenticate"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cookie"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HGREqcILTz8blHa/jsUTVTNBJlg="</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8IyYyvH9gujOqYJdv/BP0A=="</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"signature"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"P7d6nXtbKmggnnb2hyB4xXkTQNWYmFSto6tzXg=="</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"NLhDQS8YqRDxin1M4dNZeGDmNFsiv3iUz2d4Cg=="</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>13. The server verifies the cookie and signature and returns a success response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"error_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Authentication to the WebSocket server is by a <code>Welcome</code> notification sent to the client and an <code>Authenticate</code> command sent by the client.</p>
+
+<ul>
+<li>The <code>Welcome</code> notification contains a <code>nonce</code> field, whose value is a base64-encoded nonce that has been randomly generated by the server. The nonce is 16 bytes, and the base64 encoding transforms it into a 24-character string. This 16-byte nonce is hereafter referenced as the <em>server nonce</em>.</li>
+<li>The <code>Authenticate</code> command contains the following fields:
+
+<ul>
+<li><strong><code>user_id</code>:</strong> <em>(integer)</em> The unique numeric identifier of the authenticating user.</li>
+<li><strong><code>cookie</code>:</strong> <em>(string)</em> A base64-encoded value that varies by user but is fixed for each specific user. In the CoinFLEX web interface, this authentication cookie is called an &quot;API Key.&quot;</li>
+<li><strong><code>nonce</code>:</strong> <em>(string)</em> A base64-encoded nonce that has been randomly generated by the client. The nonce is 16 bytes, and the base64 encoding transforms it into a 24-character string. This 16-byte nonce is hereafter referenced as the <em>client nonce</em>.</li>
+<li><strong><code>signature</code>:</strong> <em>(pair of strings)</em> The base64-encoded <em>r</em> and <em>s</em> values of an <a href="http://en.wikipedia.org/wiki/Elliptic_Curve_DSA">ECDSA</a> signature over the SHA-224 digest of a message consisting of the concatenation of the 8-byte (big-endian) user identifier, the 16-byte server nonce, and the 16-byte client nonce. The signature uses the <strong>secp224k1</strong> curve parameters published by the <a href="http://www.secg.org/">Standards for Efficient Cryptography Group</a> in <a href="http://www.secg.org/download/aid-784/sec2-v2.pdf">SEC 2: Recommended Elliptic Curve Domain Parameters version 2.0</a> (<a href="http://www.shield-kratos.com/pdf/sec2-v2.pdf">mirror</a>). The private key used in signing is the 224-bit (big-endian) integer interpretation of the SHA-224 hash of the concatenation of the 8-byte (big-endian) user identifier and the UTF-8-encoded passphrase of the user.</li>
+</ul></li>
+</ul>
+
+<hr>
+<h1 id='reference'>Reference:</h1>
+<p><a href="https://www.okex.com/docs/en/#futures-README">OKEX Reference</a>.</p>
+
+<p><a href="https://huobiapi.github.io/docs/dm/v1/en/">Huobi Reference</a>.</p>
+
+<p><a href="https://github.com/coinflex-exchange/API">CoinFLEX Reference</a>.</p>
+
+<p><a href="https://binanceapitest.github.io/Binance-Futures-API-doc/wss/#individual-symbol-ticker-streams">Binance Reference</a>.</p>
+<h1 id='table'>Table:</h1>
+<table><thead>
+<tr>
+<th></th>
+<th>v2 Requirement</th>
+<th>OKEx (Huobi) functions</th>
+<th>CoinFLEX Equivalent Function</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>General</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Authentication</td>
+<td>Standard</td>
+<td>Standard</td>
+<td>EDCSA</td>
+</tr>
+<tr>
+<td>Accounts</td>
+<td>Linear, Inverse</td>
+<td>Funding, Spot, Margin, Perp, Options, Fiat, Savings,</td>
+<td>Spot, June, September</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>It is recommended to access CoinFLEX APIs from AWS Japan for better performance</td>
+<td>It is recommended to access Huobi API from AWS Japan for better stability. If your server is in China mainland, it may be not stable.</td>
+<td>AWS Europe</td>
+</tr>
+<tr>
+<td>Rest API</td>
+<td>Plan to have Rest  capabilities closer to the other exchanges (10/s)</td>
+<td>It is strongly recommended to use Ali-cloud server in Hong Kong.  We strongly recommend you to use REST APIs in performing trading activities and making withdrawals.</td>
+<td>It is weak for people to use Rest API. Our Rest API is based off the Websocket API and is inferior</td>
+</tr>
+<tr>
+<td>Websocket API</td>
+<td></td>
+<td>It is suggested to use Websocket API to get data update, lime market data and order update</td>
+<td>Websocket are for real traders</td>
+</tr>
+<tr>
+<td>Rest - COINFLEX Tickers</td>
+<td></td>
+<td></td>
+<td>https://webapi.coinflex.com/</td>
+</tr>
+<tr>
+<td>GET /balances/</td>
+<td>Gets the user&#39;s available and reserved balances in all assets. This gets balances for all spot assets.</td>
+<td>N/A</td>
+<td>https://github.com/coinflex-exchange/API/blob/master/REST.md#get-assets</td>
+</tr>
+</tbody></table>
+<h1 id='api'>API:</h1><h2 id='gets-a-complete-list-of-coinflex-spot-and-futures-markets'>Gets a complete list of  CoinFLEX SPOT and Futures markets</h2>
+<p>in v2:</p>
+
+<ul>
+<li>Change base:counter to ticker</li>
+<li>have &quot;type&quot;</li>
+<li>Include a lot more information about the contract compared to before</li>
+<li>For Perps, maturity is the following day</li>
+</ul>
+
+<blockquote>
+<p>Example of a successful get markets request:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"market_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Spot"</span><span class="w">
+        </span><span class="s2">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spot"</span><span class="w">
+        </span><span class="s2">"tick_size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.1"</span><span class="w">
+        </span><span class="s2">"trade_increment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"market_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Perpetual (Linear)"</span><span class="w">
+        </span><span class="s2">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"future"</span><span class="w">
+        </span><span class="s2">"tick_size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.5"</span><span class="w">
+        </span><span class="s2">"trade_increment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="w">
+        </span><span class="s2">"delivery"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-05-07"</span><span class="w">
+        </span><span class="s2">"settlement_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="w">
+        </span><span class="s2">"contract_val_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="w">        
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"market_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-REPO-INV"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Repo (Inverse)"</span><span class="w">
+        </span><span class="s2">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-INV"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"repo"</span><span class="w">
+        </span><span class="s2">"tick_size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00005"</span><span class="w">
+        </span><span class="s2">"trade_increment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+        </span><span class="s2">"settlement_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="w">
+        </span><span class="s2">"contract_val_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"market_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SPR-PQ-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USD Perp-Qtr Spread (Linear)"</span><span class="w">
+        </span><span class="s2">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-SWAP-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"counter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC-USD-200626-LIN"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"spread"</span><span class="w">
+        </span><span class="s2">"tick_size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w">
+        </span><span class="s2">"trade_increment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.001"</span><span class="w">
+        </span><span class="s2">"settlement_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="w">
+        </span><span class="s2">"contract_val_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="w">        
+    </span><span class="p">}]</span><span class="w">
+</span></code></pre><h3 id='http-request'>HTTP Request</h3>
+<p><code>GET /markets/</code></p>
+
+<ul>
+<li><p>id: Unique identified of the trading market</p></li>
+<li><p>name: English name of the market</p></li>
+<li><p>base: transaction currency (BTC in BTC/USD)</p></li>
+<li><p>counter: base currency (USD in BTC/USD)</p></li>
+</ul>
+<h1 id='authentication'>Authentication:</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
+<pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
 
 <span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
 </code></pre>
@@ -325,7 +616,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves all kittens.</p>
-<h3 id='http-request'>HTTP Request</h3>
+<h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET http://example.com/api/kittens</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
@@ -379,7 +670,7 @@ Remember — a happy kitten is an authenticated kitten!
 <p>This endpoint retrieves a specific kitten.</p>
 
 <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request-3'>HTTP Request</h3>
 <p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -418,7 +709,7 @@ Remember — a happy kitten is an authenticated kitten!
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint deletes a specific kitten.</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
@@ -493,12 +784,6 @@ This error section is stored in a separate file in <code>includes/_errors.md</co
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
-          </div>
       </div>
     </div>
   </body>
