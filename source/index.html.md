@@ -18,6 +18,8 @@ includes:
   - websocket_readme
 
 search: true
+
+code_clipboard: true
 ---
 
 # CoinFLEX Trade Engine APIs
